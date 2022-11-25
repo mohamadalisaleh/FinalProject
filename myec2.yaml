@@ -1,0 +1,211 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  VPC:
+     Type: AWS::EC2::VPC
+     Properties:
+      CidrBlock: 10.0.0.0/16
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: !Select [ 0 , !GetAZs '']
+
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: false
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: !Select [ 0 , !GetAZs '']
+  
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select [ 1 , !GetAZs '']
+ 
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: false
+      CidrBlock: 10.0.3.0/24
+      AvailabilityZone: !Select [ 1 , !GetAZs '']
+
+  InternetGateway:
+      Type: AWS::EC2::InternetGateway
+
+  VPCGatewayAttachment:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+          InternetGatewayId: !Ref InternetGateway
+          VpcId: !Ref VPC
+
+  NATGateway:
+   Type: AWS::EC2::NatGateway
+   Properties:
+      AllocationId: !GetAtt EIP.AllocationId
+      SubnetId: !Ref PublicSubnet
+
+  EIP:
+    Type: AWS::EC2::EIP
+
+  PublicRTB:
+      Type: AWS::EC2::RouteTable
+      Properties:
+        VpcId: !Ref VPC
+
+  PrivateRTB:
+      Type: AWS::EC2::RouteTable
+      Properties:
+        VpcId: !Ref VPC
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+        RouteTableId: !Ref PublicRTB
+        DestinationCidrBlock: 0.0.0.0/0
+        GatewayId: !Ref InternetGateway
+
+  PrivateRoute:
+    Type: AWS::EC2::Route
+    Properties:
+        RouteTableId: !Ref PrivateRTB
+        DestinationCidrBlock: 0.0.0.0/0
+        NatGatewayId: !Ref NATGateway
+
+  PrivateSubnetTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+        RouteTableId: !Ref PrivateRTB
+        SubnetId: !Ref PrivateSubnet
+
+  PrivateSubnetTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+        RouteTableId: !Ref PrivateRTB
+        SubnetId: !Ref PrivateSubnet2
+
+
+  PublicSubnetTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+        RouteTableId: !Ref PublicRTB
+        SubnetId: !Ref PublicSubnet
+
+  
+  PublicSubnetTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+        RouteTableId: !Ref PublicRTB
+        SubnetId: !Ref PublicSubnet2
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  InstancePrivateSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/24
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/24
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/24
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/24
+
+  LoadBalancer:
+      Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+      Properties:
+        Subnets:
+          - !Ref PublicSubnet
+          - !Ref PublicSubnet2
+
+  HTTPListener:
+   Type: "AWS::ElasticLoadBalancingV2::Listener"
+   Properties:
+     DefaultActions:
+       - Type: fixed-response
+         FixedResponseConfig:
+           StatusCode: "404"
+     LoadBalancerArn: !Ref LoadBalancer
+     Port: 80
+     Protocol: "HTTP"
+
+  MyTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VPC
+      HealthCheckEnabled: true
+      Name: MyTargets
+      TargetType: instance
+      Protocol: "HTTP"
+      Port: 80
+      Targets:
+      - Id: !Ref MyPrivateInstance 
+
+  KeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties: 
+      KeyName: aws-NewKey
+
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0b0dcb5067f052a63
+      KeyName: !Ref KeyPair
+      InstanceType: t2.micro
+      SecurityGroupIds:
+          - !Ref InstanceSecurityGroup
+      SubnetId: !Ref PublicSubnet
+
+  MyPrivateInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0b0dcb5067f052a63
+      KeyName: !Ref KeyPair
+      InstanceType: t2.micro
+      SecurityGroupIds:
+          - !Ref InstancePrivateSecurityGroup
+      SubnetId: !Ref PrivateSubnet
+
