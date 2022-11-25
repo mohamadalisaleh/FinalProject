@@ -29,7 +29,7 @@ Resources:
                      - !Ref MyBucket1
                      - /*
               Principal:
-                  AWS: !Join [ '', [ "arn:aws:iam::", 682322613156, ":role/", Ref : Role ] ]
+                  AWS: !Join [ '', [ "arn:aws:iam::", **********, ":role/", Ref : Role ] ]
 
             - Sid: "VisualEditor1"
               Action: "s3:ListBucket"
@@ -39,7 +39,7 @@ Resources:
                    - - 'arn:aws:s3:::'
                      - !Ref MyBucket1
               Principal: 
-                  AWS: !Join [ '', [ "arn:aws:iam::", 682322613156, ":role/", Ref : Role ] ]
+                  AWS: !Join [ '', [ "arn:aws:iam::", ************, ":role/", Ref : Role ] ]
  
 
    S3BucketPolicy2:
@@ -59,7 +59,7 @@ Resources:
                      - !Ref S3Bucket2
                      - /*
               Principal:
-                  AWS: !Join [ '', [ "arn:aws:iam::", 682322613156, ":role/", Ref : Role ] ]
+                  AWS: !Join [ '', [ "arn:aws:iam::", *************, ":role/", Ref : Role ] ]
 
 
    Role:
