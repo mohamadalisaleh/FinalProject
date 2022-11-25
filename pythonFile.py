@@ -6,8 +6,8 @@ s3_client = boto3.client('s3')
 
 def lambda_handler(event, context):
     
-    bucket_name = 'dirty-bucket19'
-    file_name = 'Dirty.txt'
+    bucket_name = 'bucket-name'
+    file_name = 'file-name'
   
     s3_response = s3_client.get_object(Bucket=bucket_name , Key=file_name)
     print("s3_response : " , s3_response)
@@ -21,5 +21,5 @@ def lambda_handler(event, context):
             
         my_new_list = ' '.join(my_words)    
 
-    s3_client.put_object(Body=my_new_list,Bucket='clean-bucket19',Key= 'clean.txt')
+    s3_client.put_object(Body=my_new_list,Bucket='destination-bucket',Key= 'newFile')
     return str(my_words)
