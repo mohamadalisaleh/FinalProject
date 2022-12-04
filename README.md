@@ -1,10 +1,10 @@
  # About
  
-Encryption Application , Upload dirty security files automatically to s3 Bucket and clean security risks with Amazon web service IaC cloudformation
+Encryption Application , Upload dirty security files automatically to s3 Bucket and clean security risks
 
 # Aws Components 
 
-- Virtual Private Cloud with 2 public subnets and 2 private subnets
+- Virtual Private Cloud with public subnets and private subnets
 -	Public and Private Amazon Elastic compute cloud
 - Amazon S3 Buckets
 - Lambda function encrypt files    
