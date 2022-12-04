@@ -4,7 +4,7 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
 
 # Aws Component
 
-•	Virtual Private Cloud with 2 public subnets and 2 private subnets  
-•	Public and Private Amazon Elastic compute cloud
-•	Amazon S3 Buckets
-•	Lambda function encrypt files    
+•	Virtual Private Cloud with public subnets and private subnets.
+•	Public and Private Amazon Elastic compute cloud.
+•	Amazon S3 Buckets.
+•	Lambda function encrypt files.    
