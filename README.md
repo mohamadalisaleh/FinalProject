@@ -28,10 +28,15 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
  - IAM Role to specific permssions 
  - A bucket polic use to grant access permissions to the bucket .
 
+
 ## Working Amazon Lambda function
+
  - create serverless computing platform to encrypt data
- - connection with VPC :
- -> SecurityGroupIds:
- -> !Ref InstanceSecurityGroup
- -> SubnetIds:
- ->!Ref PublicSubnet
+ - connection with VPC
+ 
+## Working with EC2
+
+- Setup apache2 web server 
+- install PHP
+- upload web application on apache2 server
+- send files to Amazaon S3 bucket automatically
