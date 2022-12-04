@@ -4,6 +4,7 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
 
 # Aws Components 
 
-- Type some Markdown on the left
-- See HTML in the right
-- ✨Magic ✨
+- Virtual Private Cloud with 2 public subnets and 2 private subnets
+-	Public and Private Amazon Elastic compute cloud
+- Amazon S3 Buckets
+- Lambda function encrypt files    
