@@ -1,7 +1,7 @@
  # About
  
 Encryption Application , Upload dirty security files automatically to s3 Bucket and clean security risks
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=radical)
+
 # Aws Components 
 
 - Virtual Private Cloud with public subnets and private subnets
