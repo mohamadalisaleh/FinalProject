@@ -32,6 +32,6 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
  - create serverless computing platform to encrypt data
  - connection with VPC :
  -> SecurityGroupIds:
- ->        !Ref InstanceSecurityGroup
+ -> !Ref InstanceSecurityGroup
  -> SubnetIds:
- ->        !Ref PublicSubnet
+ ->!Ref PublicSubnet
