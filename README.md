@@ -2,11 +2,9 @@
  
 Encryption Application , Upload dirty security files automatically to s3 Bucket and clean security risks with Amazon web service IaC cloudformation
 
-Transmission is a fast, easy, and free BitTorrent client. It comes in several flavors:
+# Aws Components 
 
-A native macOS GUI application
-GTK+ and Qt GUI applications for Linux, BSD, etc.
-A Qt-based Windows-compatible GUI application
-A headless daemon for servers and routers
-A web UI for remote controlling any of the above
-Visit https://transmissionbt.com/ for more information.
+•	Virtual Private Cloud with 2 public subnets and 2 private subnets  
+•	Public and Private Amazon Elastic compute cloud
+•	Amazon S3 Buckets
+•	Lambda function encrypt files    
