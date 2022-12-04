@@ -2,7 +2,7 @@
  
 Encryption Application , Upload dirty security files automatically to s3 Bucket and clean security risks
 
-[![N|Solid](https://aws.amazon.com/console)](https://aws.amazon.com/console)
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&hide=contribs,prs)
 
 # Aws Components 
 
