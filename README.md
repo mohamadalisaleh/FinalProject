@@ -9,7 +9,7 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
 - Amazon S3 Buckets
 - Lambda function encrypt files 
 
-# Features
+ Features
 
   ## Working Amazon VPC
 
