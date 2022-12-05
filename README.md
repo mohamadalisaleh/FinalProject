@@ -40,10 +40,10 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
 
 Setup Apach2e server
 
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
+    sudo yum update -y
+    sudo yum install -y apache2
+    sudo systemctl status apache2
+    
  - install PHP
 - upload web application on apache2 server
 - send files to Amazaon S3 bucket automatically
