@@ -121,15 +121,9 @@ Resources:
           ToPort: 22
           CidrIp: 0.0.0.0/0
       SecurityGroupEgress:
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
+        - IpProtocol: -1
           CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: 0.0.0.0/0
-
+          
   InstancePrivateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -198,6 +192,22 @@ Resources:
       SecurityGroupIds:
           - !Ref InstanceSecurityGroup
       SubnetId: !Ref PublicSubnet
+       UserData:
+        Fn::Base64: 
+          !Sub |
+            #!/bin/bash
+            sudo yum clean metadata
+            sudo yum update -y
+            sudo yum install -y httpd 
+            sudo systemctl start httpd
+            sudo yum install -y php
+            sudo yum install -y git 
+            sudo rm /var/www/html/index.html
+            curl -sS https://getcomposer.org/installer | php
+            sudo mv composer.phar/* /var/www/html/
+            sudo php composer.phar require aws/aws-sdk-php
+            copy php code form github to ec2 instance
+            sudo mv FinalProject/* /var/www/html/
 
   MyPrivateInstance:
     Type: AWS::EC2::Instance
