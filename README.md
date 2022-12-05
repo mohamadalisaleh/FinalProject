@@ -50,7 +50,5 @@ install PHP
     sudo yum install -y php
     php -version
     
-upload web application on apache2 server
-    http://loacalhost.com
-    
-send files to Amazaon S3 bucket automatically
+- upload web application on apache2 server
+- send files to Amazaon S3 bucket automatically
