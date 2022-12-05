@@ -38,7 +38,12 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
  
 ## Working with EC2
 
-- Setup apache2 web server 
-- install PHP
+Setup Apach2e server
+
+    // Some comments
+    line 1 of code
+    line 2 of code
+    line 3 of code
+ - install PHP
 - upload web application on apache2 server
 - send files to Amazaon S3 bucket automatically
