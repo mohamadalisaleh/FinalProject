@@ -44,7 +44,7 @@ Setup Apach2e server
     sudo yum install -y apache2
     sudo systemctl status apache2
     
- - install PHP
+install PHP
  
     sudo yum update -y
     sudo yum install -y php
