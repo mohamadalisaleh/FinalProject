@@ -51,6 +51,6 @@ install PHP
     php -version
     
 upload web application on apache2 server
-    http://loacalhost
+    http://loacalhost.com
     
 send files to Amazaon S3 bucket automatically
