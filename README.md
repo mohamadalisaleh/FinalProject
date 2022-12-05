@@ -49,6 +49,8 @@ install PHP
     sudo yum update -y
     sudo yum install -y php
     php -version
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar require aws/aws-sdk-php
     
 - upload web application on apache2 server
 - send files to Amazaon S3 bucket automatically
