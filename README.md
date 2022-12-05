@@ -45,5 +45,10 @@ Setup Apach2e server
     sudo systemctl status apache2
     
  - install PHP
+ 
+    sudo yum update -y
+    sudo yum install -y php
+    php -version
+    
 - upload web application on apache2 server
 - send files to Amazaon S3 bucket automatically
