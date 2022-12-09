@@ -28,7 +28,7 @@ Encryption Application , Upload dirty security files automatically to s3 Bucket 
  
  - S3 Buckets containers for objects To store your data that you can open it, download it, and move it.
  - IAM Role to specific permssions 
- - A bucket polic use to grant access permissions to the bucket .
+ - A bucket policy use to grant access permissions to the bucket .
 
 
 ## Working Amazon Lambda function
